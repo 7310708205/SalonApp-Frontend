@@ -1,0 +1,28 @@
+.nav{
+    text-align: center;
+    color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.about-section{
+    width: 100%;
+    height: auto;
+    background-color:var(--theme--primary--color);
+}
+.about__wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 0px;
+}
+.about__heading{
+    text-align: left;
+}
+
+.about__content > p{
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: var(--font--text-family);
+    color: #4b4a4a;
+    max-width: 70%;
+    padding-top: 20px;
+}
