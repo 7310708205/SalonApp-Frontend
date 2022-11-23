@@ -1,76 +1,60 @@
+import { buildQueries } from "@testing-library/react";
 import axios from "axios";
 
 import React, { useEffect, useState } from "react";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 export default function EditAppointment() {
+  let navigate = useNavigate();
 
-    let navigate = useNavigate();
+  const { id } = useParams();
+  const [user, setUser] = useState([
+    {
+      firstname: "",
+      lastname: "",
+      address: "",
+      service: "",
+      city: "",
+      date: "",
+    },
+  ]);
 
-  
-    const {id}=useParams();
-    const [user,setUser]=useState([
+  const { firstname, lastname, address, service, city, date } = user;
+  const onInputChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
-        {
-    
-          firstname : "",
-    
-          lastname : "",
-    
-          address:"",
-    
-          service:"",
-          city:"",
-          date:""
-    
-        }
-    
-      ]);
-      
-      const {firstname, lastname, address, service ,city,date} = user;
-      const onInputChange = (e) => {
+  useEffect(() => {
+    loadUser();
+  }, []);
 
-        setUser({ ...user, [e.target.name]: e.target.value });
-    
-      };
-    
-    
-    
-      useEffect(()=>{
-    
-        loadUser();
-    
-      },[])
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
-      const onSubmit = async (e) => {
+    await axios
+      .put(`http://localhost:8080/api/test/appointment/${id}`, user)
+      .then((response) => {
+        setUser(response.data);
 
-        e.preventDefault();
-    
-        await axios.put(`http://localhost:8080/api/test/appointment/${id}`, user).then((response)=>{
-    
-            setUser(response.data);
-    
-            alert("Appointment Updated")
-    
+        alert("Appointment Updated");
+
         navigate("/");
-    
-            console.log(response);
-    
-        })}
-        const loadUser=async()=>{
 
-            await axios.get(`http://localhost:8080/api/test/appointment/${id}`).then((response)=>{
-         
-                 setUser(response.data);
-         
-                 console.log(response);
-         
-             })
-         
-           }
-        return(
-<>
-<form onSubmit={(e) => onSubmit(e)}>
+        console.log(response);
+      });
+  };
+  const loadUser = async () => {
+    await axios
+      .get(`http://localhost:8080/api/test/appointment/${id}`)
+      .then((response) => {
+        setUser(response.data);
+
+        console.log(response);
+      });
+  };
+  return (
+    <>
+      <form onSubmit={(e) => onSubmit(e)}>
         <section className="h-100 bg-dark">
           <div
             className="container py-5 h-100"
@@ -92,7 +76,7 @@ export default function EditAppointment() {
                             fontWeight: "bold",
                           }}
                         >
-                          Book your Appointment
+                          Book your Appointment!!
                         </h4>
 
                         <div className="row">
@@ -171,7 +155,6 @@ export default function EditAppointment() {
                           </div>
                         </div>
 
-
                         <div className="form-outline mb-4">
                           <input
                             type="date"
@@ -186,16 +169,14 @@ export default function EditAppointment() {
                         <div
                           className="form-outline mb-4"
                           style={{ display: "none" }}
-                        >
-                          
-                        </div>
+                        ></div>
 
                         <div className="d-flex justify-content-end pt-3">
                           <button
                             type="submit"
                             class="btn btn-warning btn-lg ms-2"
                           >
-                            Submit 
+                            Submit
                           </button>
                         </div>
                       </div>
@@ -207,7 +188,6 @@ export default function EditAppointment() {
           </div>
         </section>
       </form>
-</>
-        )
-
+    </>
+  );
 }

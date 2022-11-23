@@ -1,7 +1,8 @@
 footer{
     width: 100%;
     height: auto;
-    background-color: var(--theme--secondary-color);
+    /* background-color: var(--theme--secondary-color); */
+    background-color: black;
 }
 .footer__wrapper{
     display: grid;
@@ -22,7 +23,7 @@ footer{
 .footer_about_text{
     font-size: 0.8rem;
     font-weight: 400;
-    color: var(--text--primary--color);
+    color: white;
     font-family: var(--font--text-family);
 }
 
@@ -30,7 +31,7 @@ footer{
     padding-bottom: 25px;
     font-size: 1.2rem;
     font-weight: 500;
-    color: var(--text--default--color);
+    color: white;
     font-family: var(--font--text-family);
 }
 .footer_menu_item{
@@ -61,3 +62,19 @@ footer{
     font-family: var(--font--text-family);
     color: var(--text--primary--color);
 }
+.footer__social_media{
+    padding: 30px 0px;
+}
+.social__items{
+    display: flex;
+    gap: 10px;
+}
+.social__item a svg{
+    color: var(--text--primary--color);
+    font-size: 30px;
+    transition: 3s;
+}
+.social__item a svg:hover{
+    color: var(--text--default--color);
+}
+

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthService from "../services/auth-service";
+import Footer from "./Footer";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -40,11 +41,6 @@ const Login = () => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
 
         <form onSubmit={handleLogin}>
           <div className="form-group">
@@ -76,7 +72,9 @@ const Login = () => {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
+    
   );
 };
 

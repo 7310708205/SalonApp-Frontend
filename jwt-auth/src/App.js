@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-//import logoimg from "./components/f-logo.jpg"
+import logoimg from "./components/navlogo.png";
 import AuthService from "./services/auth-service";
 
 import Login from "./components/Login";
@@ -11,7 +11,8 @@ import Service from "./Service/Service";
 import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import AdminBoard from "./components/AdminBoard";
-import EditAppointment from "./components/EditAppointment"
+import EditAppointment from "./components/EditAppointment";
+import Protected from "./components/Protected";
 
 import Booking from "./components/Booking";
 const App = () => {
@@ -34,19 +35,22 @@ const App = () => {
   };
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-      
-        <Link to={"/"} className="navbar-brand"> 
+      <nav className="navbar navbar-expand navbar-dark bg-black">
+     
+      <img src={logoimg} />
+        <div className="navbar-nav mr-auto"></div>
+        {/* <Link to={"/"} className="navbar-brand"> 
          Beauty Salon
           
-        </Link>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
+        </Link> */}
+        <div className="navbar-nav mr-auto" style={{"color":"white"}}>
+       
+          <li className="nav-item" style={{"margin-left":"30px"}}>
             <Link to={"/home"} className="nav-link">
               Home
             </Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item" >
             <Link to={"/service"} className="nav-link">
               Services
             </Link>
@@ -68,9 +72,15 @@ const App = () => {
             
           )} 
 
-          {/* {currentUser && (
-            
-          )} */}
+          {currentUser && !showAdminBoard &&(
+            <div>
+              <li className="nav-item">
+              <Link to={"/booking"} className="nav-link">
+                Booking
+              </Link>
+            </li>
+            </div>
+          )}
           </div>
           
         {currentUser ? (
@@ -80,12 +90,13 @@ const App = () => {
                 {/* {currentUser.username} */}Profile
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link to={"/booking"} className="nav-link">
                 Booking
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
+            
               <a href="/login" className="nav-link" onClick={logOut}>
                 LogOut
               </a>
@@ -103,9 +114,11 @@ const App = () => {
           </div>
         )}
       </nav>
-      <div className="container mt-3">
+
+       
+      <div className="container mt-3"> 
         <Routes>
-          <Route path="/" element={<Home/>} />
+          <Route path="/" element ={Home}/>
           <Route path="/home" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/profile" element={<Profile/>} />
@@ -116,6 +129,18 @@ const App = () => {
           <Route path="/editAppointment/:id" element={<EditAppointment/>} />
    
         </Routes>
+
+        {/* <Routes>
+          <Route path="/" element = {Home} />
+          <Route path="/home" element={Home} />
+          <Route path="/login" element={<Protected Component ={Login}/>} />
+          <Route path="/profile" element={ <Profile />} />
+          <Route path="/user" element={<BoardUser/>} />
+          <Route path="/admin" element={<AdminBoard/>} />
+          <Route path="/service" element={<Service/>} />
+          <Route path="/booking" element={<Booking/>} />
+          <Route path="/editAppointment/:id" element={<EditAppointment/>} />
+        </Routes> */}
       </div>
     </div>
   );
